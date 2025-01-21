@@ -12,10 +12,11 @@ describe("--install-extension", () => {
     setupFlags = ["--extensions-dir", tempDir]
   })
   it("should use EXTENSIONS_GALLERY when set", async () => {
-    const extName = `author.extension-1.0.0`
-    const { stderr } = await runCodeServerCommand([...setupFlags, "--install-extension", extName], {
-      EXTENSIONS_GALLERY: "{}",
-    })
-    expect(stderr).toMatch("No extension gallery service configured")
+    const extName = "author.extension"
+    await expect(
+      runCodeServerCommand([...setupFlags, "--install-extension", extName], {
+        EXTENSIONS_GALLERY: "{}",
+      }),
+    ).rejects.toThrow("No extension gallery service configured")
   })
 })

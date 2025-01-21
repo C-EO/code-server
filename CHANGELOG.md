@@ -20,6 +20,489 @@ Code v99.99.999
 
 -->
 
+## Unreleased
+
+## [4.96.4](https://github.com/coder/code-server/releases/tag/v4.96.4) - 2025-01-20
+
+Code v1.96.4
+
+### Changed
+
+- Update to Code 1.96.4.
+
+## [4.96.2](https://github.com/coder/code-server/releases/tag/v4.96.2) - 2024-12-20
+
+Code v1.96.2
+
+### Changed
+
+- Update to Code 1.96.2.
+
+## [4.96.1](https://github.com/coder/code-server/releases/tag/v4.96.1) - 2024-12-18
+
+Code v1.96.1
+
+### Added
+
+- Dark color scheme for login and error pages.
+
+### Changed
+
+- Update to Code 1.96.1.
+
+## [4.95.3](https://github.com/coder/code-server/releases/tag/v4.95.3) - 2024-11-18
+
+Code v1.95.3
+
+### Changed
+
+- Update to Code 1.95.3.
+
+## [4.95.2](https://github.com/coder/code-server/releases/tag/v4.95.2) - 2024-11-12
+
+Code v1.95.2
+
+### Changed
+
+- Update to Code 1.95.2.
+
+## [4.95.1](https://github.com/coder/code-server/releases/tag/v4.95.1) - 2024-11-06
+
+Code v1.95.1
+
+### Changed
+
+- Update to Code 1.95.1.
+
+## [4.93.1](https://github.com/coder/code-server/releases/tag/v4.93.1) - 2024-09-23
+
+Code v1.93.1
+
+### Changed
+
+- Updated to Code 1.93.1.
+
+### Added
+
+- Added `--abs-proxy-base-path` flag for when code-server is not at the root.
+
+## [4.92.2](https://github.com/coder/code-server/releases/tag/v4.92.2) - 2024-08-19
+
+Code v1.92.2
+
+### Breaking changes
+
+- Dropped a patch that changed the compile target from es2022 to es2020 because
+  it no longer works with the way VS Code uses static properties. This may break
+  older browsers, so those browsers will either have to be updated or use an
+  older version of code-server.
+
+### Changed
+
+- Updated to Code 1.92.2.
+
+## [4.91.0](https://github.com/coder/code-server/releases/tag/v4.91.0) - 2024-07-10
+
+Code v1.91.0
+
+### Changed
+
+- Updated to Code 1.91.0.
+
+## [4.90.3](https://github.com/coder/code-server/releases/tag/v4.90.3) - 2024-06-21
+
+Code v1.90.2
+
+### Changed
+
+- Updated to Code 1.90.2.
+
+### Fixed
+
+- When the log gets rotated it will no longer incorrectly be moved to a new
+  directory created in the current working directory named with a date.
+  Instead, the file itself is prepended with the date and kept in the same
+  directory, as originally intended.
+
+## [4.90.2](https://github.com/coder/code-server/releases/tag/v4.90.2) - 2024-06-14
+
+Code v1.90.1
+
+### Changed
+
+- Updated to Code 1.90.1.
+
+## [4.90.1](https://github.com/coder/code-server/releases/tag/v4.90.1) - 2024-06-12
+
+Code v1.90.0
+
+### Fixed
+
+- Cache a call to get CPU information used in telemetry that could result in a
+  lack responsiveness if it was particularly slow.
+
+## [4.90.0](https://github.com/coder/code-server/releases/tag/v4.90.0) - 2024-06-11
+
+Code v1.90.0
+
+### Changed
+
+- Updated to Code 1.90.0.
+- Updated Node to 20.11.1.
+
+### Added
+
+- Send contents to the clipboard in the integrated terminal by piping to
+  `code-server --stdin-to-clipboard` or `code-server -c`.
+
+  You may want to make this an alias:
+
+  ```
+  alias xclip="code-server --stdin-to-clipboard"
+  echo -n "hello world" | xclip
+  ```
+
+## [4.89.1](https://github.com/coder/code-server/releases/tag/v4.89.1) - 2024-04-14
+
+Code v1.89.1
+
+### Changed
+
+- Updated to Code 1.89.1.
+
+## [4.89.0](https://github.com/coder/code-server/releases/tag/v4.89.0) - 2024-04-08
+
+Code v1.89.0
+
+### Changed
+
+- Updated to Code 1.89.0.
+
+## [4.23.1](https://github.com/coder/code-server/releases/tag/v4.23.1) - 2024-04-15
+
+Code v1.88.1
+
+### Changed
+
+- Updated to Code 1.88.1.
+
+## [4.23.0](https://github.com/coder/code-server/releases/tag/v4.23.0) - 2024-04-08
+
+Code v1.88.0
+
+### Changed
+
+- Updated to Code 1.88.0.
+- Updated Node to 18.18.2.
+
+### Fixed
+
+- Fix masking the exit code when failing to install extensions on the command
+  line outside the integrated terminal. Installing extensions inside the
+  integrated terminal still masks the exit code and is an upstream bug.
+
+## [4.22.1](https://github.com/coder/code-server/releases/tag/v4.22.1) - 2024-03-14
+
+Code v1.87.2
+
+### Changed
+
+- Updated to Code 1.87.2.
+- Enable keep-alive for proxy agent.
+
+## [4.22.0](https://github.com/coder/code-server/releases/tag/v4.22.0) - 2024-03-03
+
+Code v1.87.0
+
+### Changed
+
+- Updated to Code 1.87.0.
+
+## [4.21.2](https://github.com/coder/code-server/releases/tag/v4.21.2) - 2024-02-28
+
+Code v1.86.2
+
+### Changed
+
+- Updated to Code 1.86.2.
+
+## [4.21.1](https://github.com/coder/code-server/releases/tag/v4.21.1) - 2024-02-09
+
+Code v1.86.1
+
+### Changed
+
+- Updated to Code 1.86.1.
+- Updated to Node 18.17.1.
+
+### Added
+
+- Docker images for Fedora and openSUSE.
+
+## [4.21.0](https://github.com/coder/code-server/releases/tag/v4.21.0) - 2024-02-05
+
+Code v1.86.0
+
+### Changed
+
+- Updated to Code 1.86.0.
+
+## [4.20.1](https://github.com/coder/code-server/releases/tag/v4.20.1) - 2024-01-22
+
+Code v1.85.2
+
+### Changed
+
+- Updated to Code 1.85.2.
+
+### Fixed
+
+- Query variables are no longer double-encoded when going over the path proxy.
+
+## [4.20.0](https://github.com/coder/code-server/releases/tag/v4.20.0) - 2023-12-21
+
+Code v1.85.1
+
+### Added
+
+- New flag `--disable-file-uploads` to disable uploading files to the remote by
+  drag and drop and to disable opening local files via the "show local" button
+  in the file open prompt. Note that you can still open local files by drag and
+  dropping the file onto the editor pane.
+- Added `wget` to the release image.
+
+### Changed
+
+- Updated to Code 1.85.1.
+- The `--disable-file-downloads` flag will now disable the "show local" button
+  in the file save prompt as well.
+- Debian release image updated to use Bookworm.
+
+## [4.19.1](https://github.com/coder/code-server/releases/tag/v4.19.1) - 2023-11-29
+
+Code v1.84.2
+
+### Fixed
+
+- Fixed an issue where parts of the editor would not load (like the file
+  explorer, source control, etc) when using a workspace file.
+
+## [4.19.0](https://github.com/coder/code-server/releases/tag/v4.19.0) - 2023-11-18
+
+Code v1.84.2
+
+### Changed
+
+- Updated to Code 1.84.2.
+
+## [4.18.0](https://github.com/coder/code-server/releases/tag/v4.18.0) - 2023-10-20
+
+Code v1.83.1
+
+### Changed
+
+- Updated to Code 1.83.1.
+
+## [4.17.1](https://github.com/coder/code-server/releases/tag/v4.17.1) - 2023-09-29
+
+Code v1.82.2
+
+### Fixed
+
+- Make secret storage persistent. For example, logging in with GitHub should
+  persist between browser refreshes and code-server restarts.
+- Issues with argon2 on arm builds should be fixed now.
+
+## [4.17.0](https://github.com/coder/code-server/releases/tag/v4.17.0) - 2023-09-22
+
+Code v1.82.2
+
+### Added
+
+- Japanese locale.
+- `CODE_SERVER_HOST` environment variable.
+
+### Changed
+
+- Update to Code 1.82.2. This includes an update to Node 18, which also means
+  that the minimum glibc is now 2.28. If you need to maintain a lower glibc then
+  you can take a version of Node 18 that is compiled with a lower glibc and use
+  that to build code-server (or at a minimum rebuild the native modules).
+- Display paths to config files in full rather than abbreviated. If you have
+  trouble with the password not working please update and make sure the
+  displayed config paths are what you expect.
+
+### Fixed
+
+- Fix some dependency issues for the standalone arm64 and armv7l releases. If
+  you had issues with missing or failing modules please try these new builds.
+
+## [4.16.1](https://github.com/coder/code-server/releases/tag/v4.16.1) - 2023-07-31
+
+Code v1.80.2
+
+### Changed
+
+- Updated to Code 1.80.2.
+
+## [4.16.0](https://github.com/coder/code-server/releases/tag/v4.16.0) - 2023-07-28
+
+Code v1.80.1
+
+### Added
+
+- `--disable-proxy` flag. This disables the domain and path proxies but it does
+  not disable the ports panel in Code. That can be disabled by using
+  `remote.autoForwardPorts=false` in your settings.
+
+## [4.15.0](https://github.com/coder/code-server/releases/tag/v4.15.0) - 2023-07-21
+
+Code v1.80.1
+
+### Changed
+
+- Updated to Code 1.80.1.
+
+### Added
+
+- `--trusted-origin` flag for specifying origins that you trust but do not
+  control (for example a reverse proxy).
+
+Code v1.79.2
+
+## [4.14.1](https://github.com/coder/code-server/releases/tag/v4.14.1) - 2023-06-26
+
+Code v1.79.2
+
+### Security
+
+- Remove extra write permissions on the Node binary bundled with the linux-amd64
+  tarball. If you extract the tar without a umask this could mean the Node
+  binary would be unexpectedly writable.
+
+### Fixed
+
+- Inability to launch multiple instances of code-server for different users.
+
+### Added
+
+- `--session-socket` CLI flag to configure the location of the session socket.
+  By default it will be placed in `<user data dir>/code-server-ipc.sock`.
+
+## [4.14.0](https://github.com/coder/code-server/releases/tag/v4.14.0) - 2023-06-16
+
+Code v1.79.2
+
+### Added
+
+- `--domain-proxy` now supports `{{port}}` and `{{host}}` template variables.
+
+### Changed
+
+- Updated to Code 1.79.2
+- Files opened from an external terminal will now open in the most closely
+  related window rather than in the last opened window.
+
+## [4.13.0](https://github.com/coder/code-server/releases/tag/v4.13.0) - 2023-05-19
+
+Code v1.78.2
+
+### Changed
+
+- Updated to Code 1.78.2.
+
+### Fixed
+
+- Proxying files that contain non-ASCII characters.
+- Origin check when X-Forwarded-Host contains comma-separated hosts.
+
+## [4.12.0](https://github.com/coder/code-server/releases/tag/v4.12.0) - 2023-04-21
+
+Code v1.77.3
+
+### Changed
+
+- Updated to Code 1.77.3
+- Ports panel will use domain-based proxy (instead of the default path-based
+  proxy) when set via --proxy-domain.
+- Apply --app-name to the PWA title.
+
+### Added
+
+- Thai translation for login page.
+- Debug logs around the origin security check. If you are getting forbidden
+  errors on web sockets please run code-server with `--log debug` to see why the
+  requests are being blocked.
+
+## [4.11.0](https://github.com/coder/code-server/releases/tag/v4.11.0) - 2023-03-16
+
+Code v1.76.1
+
+### Changed
+
+- Updated to Code 1.76.1
+
+## [4.10.1](https://github.com/coder/code-server/releases/tag/v4.10.1) - 2023-03-04
+
+Code v1.75.1
+
+### Security
+
+Added an origin check to web sockets to prevent cross-site hijacking attacks on
+users using older or niche browser that do not support SameSite cookies and
+attacks across sub-domains that share the same root domain.
+
+The check requires the host header to be set so if you use a reverse proxy
+ensure it forwards that information otherwise web sockets will be blocked.
+
+## [4.10.0](https://github.com/coder/code-server/releases/tag/v4.10.0) - 2023-02-15
+
+Code v1.75.1
+
+### Changed
+
+- Updated to Code 1.75.1
+
+### Removed
+
+- Removed `--link` (was deprecated over thirteen months ago in 4.0.1).
+
+## [4.9.1](https://github.com/coder/code-server/releases/tag/v4.9.1) - 2022-12-15
+
+Code v1.73.1
+
+### Changed
+
+- Updated a couple steps in the build and release process to ensure we're using
+  `npm` and `yarn` consistently depending on the step.
+
+### Fixed
+
+- Fixed an issue with code-server version not displaying in the Help > About window.
+- Fixed terminal not loading on macOS clients.
+
+## [4.9.0](https://github.com/coder/code-server/releases/tag/v4.9.0) - 2022-12-06
+
+Code v1.73.1
+
+### Changed
+
+- Upgraded to Code 1.73.1
+
+### Added
+
+- `/security.txt` added as a route with info on our security policy information thanks to @ghuntley
+
+### Fixed
+
+- Installing on majaro images should now work thanks to @MrPeacockNLB for
+  adding the `--noconfirm` flag in `install.sh`
+
+### Known Issues
+
+- `--cert` on Ubuntu 22.04: OpenSSL v3 is used which breaks `pem` meaning the
+  `--cert` feature will not work. [Reference](https://github.com/adobe/fetch/pull/318#issuecomment-1306070259)
+
 ## [4.8.3](https://github.com/coder/code-server/releases/tag/v4.8.3) - 2022-11-07
 
 Code v1.72.1
@@ -106,7 +589,7 @@ Code v1.71.0
 
 ### Fixed
 
-- Add flags --unsafe-perm --legacy-peer-deps in `npm-postinstsall.sh` which ensures installing with npm works correctly
+- Add flags --unsafe-perm --legacy-peer-deps in `npm-postinstall.sh` which ensures installing with npm works correctly
 
 ## [4.6.1](https://github.com/coder/code-server/releases/tag/v4.6.1) - 2022-09-31
 

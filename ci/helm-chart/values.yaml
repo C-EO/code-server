@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: codercom/code-server
-  tag: '4.8.3'
+  tag: '4.96.4'
   pullPolicy: Always
 
 # Specifies one or more secrets to be used when pulling images from a
@@ -71,7 +71,7 @@ extraArgs: []
 # Optional additional environment variables
 extraVars: []
 #  - name: DISABLE_TELEMETRY
-#    value: true
+#    value: "true"
 #  - name: DOCKER_HOST
 #    value: "tcp://localhost:2375"
 
@@ -179,6 +179,7 @@ extraInitContainers: |
 extraSecretMounts: []
   # - name: secret-files
   #   mountPath: /etc/secrets
+  #   subPath: private.key # (optional)
   #   secretName: code-server-secret-files
   #   readOnly: true
 
@@ -189,6 +190,7 @@ extraVolumeMounts: []
   #   readOnly: true
   #   existingClaim: volume-claim
   #   hostPath: ""
+  #   emptyDir: {}
 
 extraConfigmapMounts: []
   # - name: certs-configmap
@@ -196,3 +198,8 @@ extraConfigmapMounts: []
   #   subPath: certificates.crt # (optional)
   #   configMap: certs-configmap
   #   readOnly: true
+
+extraPorts: []
+  # - name: minecraft
+  #   port: 25565
+  #   protocol: tcp

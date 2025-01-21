@@ -25,7 +25,7 @@ import * as login from "./login"
 import * as logout from "./logout"
 import * as pathProxy from "./pathProxy"
 import * as update from "./update"
-import { CodeServerRouteWrapper } from "./vscode"
+import * as vscode from "./vscode"
 
 /**
  * Register all routes and middleware.
@@ -33,7 +33,15 @@ import { CodeServerRouteWrapper } from "./vscode"
 export const register = async (app: App, args: DefaultedArgs): Promise<Disposable["dispose"]> => {
   const heart = new Heart(path.join(paths.data, "heartbeat"), async () => {
     return new Promise((resolve, reject) => {
+      // getConnections appears to not call the callback when there are no more
+      // connections.  Feels like it must be a bug?  For now add a timer to make
+      // sure we eventually resolve.
+      const timer = setTimeout(() => {
+        logger.debug("Node failed to respond with connections; assuming zero")
+        resolve(false)
+      }, 5000)
       app.server.getConnections((error, count) => {
+        clearTimeout(timer)
         if (error) {
           return reject(error)
         }
@@ -81,6 +89,13 @@ export const register = async (app: App, args: DefaultedArgs): Promise<Disposabl
       return res.redirect(`https://${req.headers.host}${req.originalUrl}`)
     }
 
+    // Return security.txt.
+    if (req.originalUrl === "/security.txt" || req.originalUrl === "/.well-known/security.txt") {
+      const resourcePath = path.resolve(rootPath, "src/browser/security.txt")
+      res.set("Content-Type", getMediaMime(resourcePath))
+      return res.send(await fs.readFile(resourcePath))
+    }
+
     // Return robots.txt.
     if (req.originalUrl === "/robots.txt") {
       const resourcePath = path.resolve(rootPath, "src/browser/robots.txt")
@@ -94,23 +109,25 @@ export const register = async (app: App, args: DefaultedArgs): Promise<Disposabl
   app.router.use("/", domainProxy.router)
   app.wsRouter.use("/", domainProxy.wsRouter.router)
 
-  app.router.all("/proxy/(:port)(/*)?", async (req, res) => {
+  app.router.all("/proxy/:port/:path(.*)?", async (req, res) => {
     await pathProxy.proxy(req, res)
   })
-  app.wsRouter.get("/proxy/(:port)(/*)?", async (req) => {
+  app.wsRouter.get("/proxy/:port/:path(.*)?", async (req) => {
     await pathProxy.wsProxy(req as pluginapi.WebsocketRequest)
   })
   // These two routes pass through the path directly.
   // So the proxied app must be aware it is running
   // under /absproxy/<someport>/
-  app.router.all("/absproxy/(:port)(/*)?", async (req, res) => {
+  app.router.all("/absproxy/:port/:path(.*)?", async (req, res) => {
     await pathProxy.proxy(req, res, {
       passthroughPath: true,
+      proxyBasePath: args["abs-proxy-base-path"],
     })
   })
-  app.wsRouter.get("/absproxy/(:port)(/*)?", async (req) => {
+  app.wsRouter.get("/absproxy/:port/:path(.*)?", async (req) => {
     await pathProxy.wsProxy(req as pluginapi.WebsocketRequest, {
       passthroughPath: true,
+      proxyBasePath: args["abs-proxy-base-path"],
     })
   })
 
@@ -155,12 +172,10 @@ export const register = async (app: App, args: DefaultedArgs): Promise<Disposabl
 
   app.router.use("/update", update.router)
 
-  const vsServerRouteHandler = new CodeServerRouteWrapper()
-
   // Note that the root route is replaced in Coder Enterprise by the plugin API.
   for (const routePrefix of ["/vscode", "/"]) {
-    app.router.use(routePrefix, vsServerRouteHandler.router)
-    app.wsRouter.use(routePrefix, vsServerRouteHandler.wsRouter)
+    app.router.use(routePrefix, vscode.router)
+    app.wsRouter.use(routePrefix, vscode.wsRouter.router)
   }
 
   app.router.use(() => {
@@ -173,6 +188,6 @@ export const register = async (app: App, args: DefaultedArgs): Promise<Disposabl
   return () => {
     heart.dispose()
     pluginApi?.dispose()
-    vsServerRouteHandler.dispose()
+    vscode.dispose()
   }
 }
