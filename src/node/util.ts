@@ -9,7 +9,6 @@ import * as path from "path"
 import safeCompare from "safe-compare"
 import * as util from "util"
 import xdgBasedir from "xdg-basedir"
-import { vsRootPath } from "./constants"
 
 export interface Paths {
   data: string
@@ -85,20 +84,6 @@ export function getEnvPaths(platform = process.platform): Paths {
         runtime: xdgBasedir.runtime ? append(xdgBasedir.runtime) : paths.temp,
       }
   }
-}
-
-/**
- * humanPath replaces the home directory in path with ~.
- * Makes it more readable.
- *
- * @param homedir - the home directory(i.e. `os.homedir()`)
- * @param path - a file path
- */
-export function humanPath(homedir: string, path?: string): string {
-  if (!path) {
-    return ""
-  }
-  return path.replace(homedir, "~")
 }
 
 export const generateCertificate = async (hostname: string): Promise<{ cert: string; certKey: string }> => {
@@ -517,27 +502,12 @@ export function isNodeJSErrnoException(error: unknown): error is NodeJS.ErrnoExc
 // TODO: Replace with proper templating system.
 export const escapeJSON = (value: cp.Serializable) => JSON.stringify(value).replace(/"/g, "&quot;")
 
-type AMDModule<T> = { [exportName: string]: T }
-
 /**
- * Loads AMD module, typically from a compiled VSCode bundle.
- *
- * @deprecated This should be gradually phased out as code-server migrates to lib/vscode
- * @param amdPath Path to module relative to lib/vscode
- * @param exportName Given name of export in the file
+ * Split a string on the first equals.  The result will always be an array with
+ * two items regardless of how many equals there are.  The second item will be
+ * undefined if empty or missing.
  */
-export const loadAMDModule = async <T>(amdPath: string, exportName: string): Promise<T> => {
-  // Set default remote native node modules path, if unset
-  process.env["VSCODE_INJECT_NODE_MODULE_LOOKUP_PATH"] =
-    process.env["VSCODE_INJECT_NODE_MODULE_LOOKUP_PATH"] || path.join(vsRootPath, "remote", "node_modules")
-
-  require(path.join(vsRootPath, "out/bootstrap-node")).injectNodeModuleLookupPath(
-    process.env["VSCODE_INJECT_NODE_MODULE_LOOKUP_PATH"],
-  )
-
-  const module = await new Promise<AMDModule<T>>((resolve, reject) => {
-    require(path.join(vsRootPath, "out/bootstrap-amd")).load(amdPath, resolve, reject)
-  })
-
-  return module[exportName] as T
+export function splitOnFirstEquals(str: string): [string, string | undefined] {
+  const split = str.split(/=(.+)?/, 2)
+  return [split[0], split[1]]
 }

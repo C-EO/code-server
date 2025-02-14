@@ -68,13 +68,10 @@ describe("login", () => {
       }
     })
 
-    it("should return HTML with 'Missing password' message", async () => {
+    it("should return 'Missing password' without body", async () => {
       const resp = await codeServer().fetch("/login", { method: "POST" })
-
-      expect(resp.status).toBe(200)
-
       const htmlContent = await resp.text()
-
+      expect(resp.status).toBe(200)
       expect(htmlContent).toContain("Missing password")
     })
 
@@ -137,6 +134,17 @@ describe("login", () => {
       const htmlContent = await resp.text()
       expect(resp.status).toBe(200)
       expect(htmlContent).toContain(`Welcome to ${appName}`)
+    })
+
+    it("should return correct welcome text when locale is set to non-English", async () => {
+      process.env.PASSWORD = previousEnvPassword
+      const locale = "zh-cn"
+      const codeServer = await integration.setup([`--locale=${locale}`], "")
+      const resp = await codeServer.fetch("/login", { method: "GET" })
+
+      const htmlContent = await resp.text()
+      expect(resp.status).toBe(200)
+      expect(htmlContent).toContain(`欢迎来到 code-server`)
     })
   })
 })
